@@ -49,6 +49,11 @@ const routes = [
     path:'/logout',
     name:'logout',
     component: () => import('../components/Logout.vue')
+  },
+  {
+    path:'/history',
+    name:'history',
+    component: () => import('../components/History.vue')
   }
 ]
 

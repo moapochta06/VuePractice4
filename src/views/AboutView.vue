@@ -11,7 +11,7 @@
           <div class="product-description">
             {{ product.description }}
           </div>
-          <button v-if="isAuthenticated">В корзину</button>
+          <button v-if="isAuthenticated" @click="addToCart(product)">В корзину</button>
         </div>
       </li>
     </ul>
@@ -19,32 +19,31 @@
 </template>
 
 <script>
-import { fetchProducts } from '@/utils/api'; // Импортируем функцию
-import { mapGetters } from 'vuex';
+import { fetchProducts } from '@/utils/api'; 
+import { mapGetters , mapActions} from 'vuex';
 
 export default {
   data() {
     return {
-      products: [], // Массив для хранения товаров
+      products: [],
     };
   },
   created() {
-    this.loadProducts(); // Загружаем товары при создании компонента
+    this.loadProducts(); 
   },
   methods: {
     async loadProducts() {
-      try {
-        const fetchedProducts = await fetchProducts(); // Вызываем функцию для получения товаров
-
-        this.products = fetchedProducts.map(product => ({
+    try {
+      const fetchedProducts = await fetchProducts();
+      this.products = fetchedProducts.map(product => ({
         ...product,
-        image: `http://lifestealer86.ru/${product.image}`
-        })); // Сохраняем товары в data
-
-      } catch (error) {
-        console.error('Ошибка при загрузке товаров:', error);
-      }
-    },
+        image: `http://lifestealer86.ru/${product.image}`,
+      }));
+    } catch (error) {
+      console.error('Ошибка при загрузке товаров:', error);
+    }
+  },
+  ...mapActions(['addToCart']), 
   },
   computed: {
     ...mapGetters(['isAuthenticated']),

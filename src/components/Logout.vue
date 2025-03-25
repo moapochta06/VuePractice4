@@ -32,7 +32,7 @@ button{
     width: 150px;
     padding: 15px 0 15px 0;
     color: #fff;
-    background: #bb314a;
+    background: #df3655;
     border-radius: 6px;
     transition: 0.2s ease-in-out;
 }
