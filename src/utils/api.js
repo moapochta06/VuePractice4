@@ -1,42 +1,31 @@
+import axios from "axios";
 const API = '/api'; 
 
 export const fetchProducts = async () => {
     try {
-        const response = await fetch(`${API}/products`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const result = await response.json();
-        return result.data;
+        const response = await axios.get(`${API}/products`)
+        return response.data.data
     } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error('Error fetching products:', error.message);
         throw error;
     }
 };
-// export const login = (user) => {
-//     return new Promise((resolve, reject) => {
-//         fetch(`${API}/login`, {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json;charset=utf-8',
-//             },
-//             mode: 'cors' ,
-//             body: JSON.stringify(user),
-//         })
-//         .then((response) => {
-//             if (!response.ok) {
-//                 throw new Error('Authentication failed');
-//             }
-//             return response.json();
-//         })
-//         .then((result) => resolve(result.data.user_token)) 
-//         .catch((error) => {
-//             reject(error);
-//         });
-//     });
-// };
+export const register = async (userData) => {
+    try {
+        const response = await axios.post(`${API}/signup`, userData)
+        return response.data.data.user_token;
+    } catch (error) {
+        console.error('Error during registration:', error.message);
+        throw error; 
+    }
+};
 
+export const login = async (user) => {
+    try {
+        const response = await axios.post(`${API}/login`, user);
+        return response.data.data.user_token; 
+    } catch (error) {
+        console.error('Error during login:', error.message);
+        throw error;
+    }
+};

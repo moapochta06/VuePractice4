@@ -7,11 +7,11 @@
         <div class="product-price">
           {{ product.price }} руб.
         </div>
-        <div :class="{'container' : ifAuthenticated}">
+        <div :class="{'container' : isAuthenticated}">
           <div class="product-description">
             {{ product.description }}
           </div>
-          <button v-if="ifAuthenticated">В корзину</button>
+          <button v-if="isAuthenticated">В корзину</button>
         </div>
       </li>
     </ul>

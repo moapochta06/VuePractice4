@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import { login } from '../utils/api'; // Импортируем метод login
+import { login,register } from '../utils/api'; // Импортируем метод login
 
 export default createStore({
   state: {
@@ -32,9 +32,23 @@ export default createStore({
           });
       });
     },
+  REGISTER_REQUEST: ({ commit }, userData) => {
+    return new Promise((resolve, reject) => {
+      register(userData) 
+        .then((token) => {
+          commit('AUTH_SUCCESS', token); 
+          localStorage.setItem('myAppToken', token); 
+          resolve(token);
+        })
+        .catch((error) => {
+          commit('AUTH_ERROR'); 
+          localStorage.removeItem('myAppToken'); 
+          reject(error); 
+        });
+    });
   },
-  modules: {},
-});
+
+  }});
 
 
 

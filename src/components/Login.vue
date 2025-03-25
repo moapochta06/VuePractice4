@@ -22,12 +22,11 @@
           password: this.password,
         };
   
-        this.$store.dispatch("AUTH_REQUEST", userData)
-          .then(() => this.$router.push("/"))
-          .catch((error) => {
-            console.error('Login error:', error.message);
-          });
-      },
+        this.$store.dispatch("AUTH_REQUEST", userData).then(() => this.$router.push("/"))
+      .catch((error) => {
+        console.error('Login error:', error.message); 
+      });
+  },
     },
   };
   </script>

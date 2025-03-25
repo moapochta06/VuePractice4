@@ -2,13 +2,13 @@
     <nav>
         <div>
             <router-link to="/">Каталог</router-link>
-            <router-link to="#">Корзина</router-link>
+            <router-link to="/cart">Корзина</router-link>
             <router-link to="#">Заказы</router-link>
         </div>
         <div>
-            <router-link to="/login" v-if="!ifAuthenticated">Вход</router-link>
-            <router-link to="/signup" v-if="!ifAuthenticated">Регистрация</router-link>
-            <router-link to="#" v-if="ifAuthenticated">Выход</router-link>
+            <router-link to="/login" v-if="!isAuthenticated">Вход</router-link>
+            <router-link to="/signup" v-if="!isAuthenticated">Регистрация</router-link>
+            <router-link to="#" v-if="isAuthenticated">Выход</router-link>
       </div>
     </nav>
 </template>
