@@ -3,7 +3,7 @@
         <div>
             <router-link to="/">Каталог</router-link>
             <router-link to="/cart">Корзина</router-link>
-            <router-link to="#">Заказы</router-link>
+            <router-link to="/history">Заказы</router-link>
         </div>
         <div>
             <router-link to="/login" v-if="!isAuthenticated">Вход</router-link>

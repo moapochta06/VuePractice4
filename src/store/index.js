@@ -1,15 +1,18 @@
 import { createStore } from 'vuex';
-import { login, register } from '../utils/api'; // Импортируем методы login и register
+import { login, register, addCart } from '../utils/api'; // Импортируем методы login и register
 
 export default createStore({
   state: {
     token: localStorage.getItem('myAppToken') || '', // Токен из localStorage
     cartProducts: [], // Корзина товаров
-    cartProducts: JSON.parse(localStorage.getItem('cartProducts')) || []
+    cartProducts: JSON.parse(localStorage.getItem('cartProducts')) || [],
+    order: [],
   },
+
   getters: {
     isAuthenticated: (state) => !!state.token, // Проверка авторизации
   },
+
   mutations: {
     AUTH_SUCCESS: (state, token) => {
       state.token = token; // Устанавливаем токен
@@ -34,7 +37,11 @@ export default createStore({
         product.count -= 1; // Уменьшаем количество
       }
     },
+    SAVE_CART_TO_LOCAL_STORAGE(state) {
+      localStorage.setItem('cartProducts', JSON.stringify(state.cartProducts));
+    },
   },
+
   actions: {
     AUTH_REQUEST: ({ commit }, credentials) => {
       return new Promise((resolve, reject) => {
@@ -73,14 +80,20 @@ export default createStore({
         resolve();
       });
     },
+    addToCartWithAPI: ({ commit, state }, productData) => {
+      return addCart(productData.id, state.token)  
+          .then((message) => {
+              commit('ADD_TO_CART', productData);
+              commit('SAVE_CART_TO_LOCAL_STORAGE');
+              return message;
+          });
+  },
+    
     saveStateCart(context) {
       const cartProducts = context.state.cartProducts; 
       localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
     },
-    addToCart({ commit, dispatch }, product) {
-      commit('ADD_TO_CART', product); // Вызываем мутацию для добавления товара
-      dispatch('saveStateCart'); // Вызываем действие saveStateCart через dispatch
-    },
+    
     removeFromCart({ commit, dispatch }, productId) {
       commit('REMOVE_FROM_CART', productId); // Вызываем мутацию для удаления товара
       dispatch('saveStateCart');
@@ -89,5 +102,6 @@ export default createStore({
       commit('DECREASE_COUNT', productId); // Вызываем мутацию для уменьшения количества
       dispatch('saveStateCart');
     },
+    // order({ commit, dispatch }, )
   },
 });

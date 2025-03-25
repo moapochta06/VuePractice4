@@ -29,3 +29,12 @@ export const login = async (user) => {
         throw error;
     }
 };
+
+export const addCart = async (productId, token) => {  
+    const response = await axios.post(
+        `${API}/cart/${productId}`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+    );
+    return response.data.data.message;
+};

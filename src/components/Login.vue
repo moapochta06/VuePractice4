@@ -23,7 +23,7 @@
         };
   
         this.$store.dispatch("AUTH_REQUEST", userData).then(() => this.$router.push("/"))
-      .catch((error) => {
+        .catch((error) => {
         console.error('Login error:', error.message); 
       });
   },

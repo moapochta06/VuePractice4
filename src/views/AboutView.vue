@@ -43,7 +43,30 @@ export default {
       console.error('Ошибка при загрузке товаров:', error);
     }
   },
-  ...mapActions(['addToCart']), 
+  ...mapActions(['addToCartWithAPI']),
+    increaseQuantity() {
+      this.quantity++;
+    },
+    decreaseQuantity() {
+      if (this.quantity > 1) {
+        this.quantity--;
+      }
+    },
+    addToCart(product) {
+        const productData = {
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          price: product.price,
+          image: product.image
+        };
+        this.$store.dispatch("addToCartWithAPI", productData)
+        .then((successMessage) => {
+            alert(successMessage); 
+            this.$router.push("/");
+        })
+  },
+
   },
   computed: {
     ...mapGetters(['isAuthenticated']),

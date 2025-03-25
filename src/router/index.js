@@ -24,12 +24,6 @@ const routes = [
     component: () => import('../views/AboutView.vue'),
   },
   {
-    path: '/home',
-    name: 'home',
-    component: () => import('../views/HomeView.vue'),
-    beforeEnter: ifAuthenticated,
-  },
-  {
     path: '/login',
     name: 'login',
     component: () => import('../components/Login.vue'),

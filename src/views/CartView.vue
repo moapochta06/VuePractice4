@@ -24,12 +24,12 @@
             </div>
         </li>
     </ul>
-    <button v-if="cartProducts.length !== 0">Оформить заказ</button>
+    <button v-if="cartProducts.length !== 0" >Оформить заказ</button> //@click="order()"
     </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 export default {
     methods:{
         increaseCount(product) {
@@ -43,6 +43,7 @@ export default {
         removeFromCart(productId) {
             this.$store.dispatch('removeFromCart', productId); 
         },
+        // ...mapActions('order')
     },
     computed: {
         ...mapGetters(['isAuthenticated']),
@@ -58,11 +59,11 @@ export default {
 }
 button{
     padding: 20px 0;
-    font-weight: bold;
+    font-size: 16px;
     border-radius: 6px;
     background: #ed4172;
     color: #ffffff;
-    width: 100%;
+    width: 40%;
     cursor: pointer;
 }
 ul{
