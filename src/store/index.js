@@ -47,7 +47,13 @@ export default createStore({
         });
     });
   },
-
+  LOGOUT: ({ commit }) => {
+    return new Promise((resolve) => {
+      commit('AUTH_ERROR'); 
+      localStorage.removeItem('myAppToken'); 
+      resolve(); 
+    });
+  }
   }});
 
 
