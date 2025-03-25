@@ -8,7 +8,7 @@
         <div>
             <router-link to="/login" v-if="!isAuthenticated">Вход</router-link>
             <router-link to="/signup" v-if="!isAuthenticated">Регистрация</router-link>
-            <router-link to="#" v-if="isAuthenticated">Выход</router-link>
+            <router-link to="/logout" v-if="isAuthenticated">Выход</router-link>
       </div>
     </nav>
 </template>
