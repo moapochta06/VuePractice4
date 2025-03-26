@@ -4,9 +4,7 @@ import { login, register, addCart } from '../utils/api'; // Импортируе
 export default createStore({
   state: {
     token: localStorage.getItem('myAppToken') || '', // Токен из localStorage
-    cartProducts: [], // Корзина товаров
     cartProducts: JSON.parse(localStorage.getItem('cartProducts')) || [],
-    order: [],
   },
 
   getters: {
@@ -80,15 +78,13 @@ export default createStore({
         resolve();
       });
     },
-    addToCartWithAPI: ({ commit, state }, productData) => {
-      return addCart(productData.id, state.token)  
-          .then((message) => {
-              commit('ADD_TO_CART', productData);
-              commit('SAVE_CART_TO_LOCAL_STORAGE');
-              return message;
-          });
-  },
-    
+    addToCartWithAPI: async ({ commit, state }, productData) => {
+      const message = await addCart(productData.id, state.token);
+      commit('ADD_TO_CART', productData);
+      commit('SAVE_CART_TO_LOCAL_STORAGE');
+      return message;
+    },
+          
     saveStateCart(context) {
       const cartProducts = context.state.cartProducts; 
       localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
@@ -102,6 +98,5 @@ export default createStore({
       commit('DECREASE_COUNT', productId); // Вызываем мутацию для уменьшения количества
       dispatch('saveStateCart');
     },
-    // order({ commit, dispatch }, )
   },
 });

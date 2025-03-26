@@ -21,7 +21,7 @@ const routes = [
   {
     path: '/',
     name: 'main',
-    component: () => import('../views/AboutView.vue'),
+    component: () => import('../components/Catalog.vue'),
   },
   {
     path: '/login',
@@ -37,7 +37,7 @@ const routes = [
   {
     path:'/cart',
     name: 'cart',
-    component: () => import('../views/CartView.vue')
+    component: () => import('../components/Cart.vue')
   },
   {
     path:'/logout',
